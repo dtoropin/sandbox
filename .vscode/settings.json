@@ -1,0 +1,9 @@
+{    
+	"less.compile": {
+		"main": ["${workspaceRoot}\\style.less"],
+		"compress":  false,
+    "sourceMap": false,
+		"out": "${workspaceRoot}\\style.css",
+		"autoprefixer": "> 1%"
+	}
+}
