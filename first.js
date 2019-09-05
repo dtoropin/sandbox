@@ -1,62 +1,55 @@
-var name = 'Denis';
-console.log(name);
+function filter(input, than) {
+  if (!Array.isArray(input)) throw new Error('Это не массив');
+  if (input.length == 0) throw new Error('Массив пустой');
 
-name = 'Julia';
-console.log(name);
+  let arr = [];
+  for (let i = 0; i < input.length; i++) {
+    if (!isFinite(input[i])) throw new Error('Элемент не является числом');
+    if (input[i] < 0) throw new Error('Элемент является отрицательным числом');
 
-if (110 < 10) {
-  console.log('true');
-} else {
-  console.log('false');
-}
-
-for (let i = 0; i < 10; i++) {
-  console.log(i);
-}
-
-function sum(a, b, c) {
-  let sum = a + b + c;
-  return sum;
-}
-
-let sum1 = sum(5, 6, 7);
-console.log('sum1 = ', sum1);
-
-let sum2 = sum(10, 35, 55);
-console.log('sum2 = ', sum2);
-
-let arr = ['привет', 'loftschool'];
-arr.push('я изучаю');
-arr.push('javascript');
-
-for (let i = 0; i < arr.length; i++) {
-  console.log(arr[i]);
-}
-
-let number = [12, 45, 142, 56, 542, 432, 34, 67, 131, 92];
-for (let i = 0; i < number.length; i++) {
-  if (number[i] > 100) {
-    console.log(number[i]);
+    if (input[i] > than) {
+      arr.push(input[i]);
+    }
   }
+  return arr;
 }
 
-let obj = {
-  name: 'Денис',
-  lastName: 'Торопин',
-  age: 45
+var array1 = [12, 100, 34, 65, 10];
+try {
+  var result = filter(array1, 60);
+  console.log(result); // [100, 65];
+} catch (e) {
+  console.log(e.message);
 }
 
-console.log(obj.name);
-console.log(obj.lastName);
-console.log(obj.age);
-
-obj.location = 'Санкт-Петербург';
-console.log(obj.location);
-
-function func(name, lastName, age) {
-  let text = 'Привет, меня зовут ' + name + ' ' + lastName + ' и мне ' + age + ' лет!';
-  return text;
+var array2 = [12, -100, 34, 65, 10];
+try {
+  result = filter(array2, 20);
+  console.log(result); // Элемент является отрицательным числом
+} catch (e) {
+  console.log(e.message);
 }
 
-let me = func(obj.name, obj.lastName, obj.age);
-console.log(me);
+var array3 = [12, 'hello', 34, 65, 10];
+try {
+  result = filter(array3, 20);
+  console.log(result); // Элемент не является числом
+} catch (e) {
+  console.log(e.message);
+}
+
+var array4 = [];
+try {
+  result = filter(array4, 20);
+  console.log(result); // Массив пустой
+} catch (e) {
+  console.log(e.message);
+}
+
+var array5 = 'hello'
+try {
+  result = filter(array5, 20);
+  console.log(result); // Это не массив
+} catch (e) {
+  console.log(e.message);
+}
