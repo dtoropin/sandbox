@@ -1,3 +1,5 @@
 *Песочница*
 
-first.html - Обработка ошибок js
+index.html - FullPageScroll js
+
+slider.html - slider
