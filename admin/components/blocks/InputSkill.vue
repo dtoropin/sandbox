@@ -1,6 +1,6 @@
 <template lang="pug">
   form(
-    @submit.prevent
+    @submit.prevent='saveField'
     :class='{edit: isEdit}'
   ).skills__item
     input(type='text' :value='value').skills__input
@@ -10,7 +10,7 @@
       button(type='button' @click='editField').btn.btn--edit
       button(type='button' @click='deleteField').btn.btn--delete
     .skills__btns(v-else)
-      button(@click='saveField').btn.btn--edit
+      button.btn.btn--edit
       button(type='button' @click='cancelEditField').btn.btn--delete
 </template>
 
@@ -37,7 +37,12 @@ export default {
       console.log('cancel edit skill');
     },
     saveField() {
-      console.log('save skill');
+      this.$validate()
+        .then(function (success) {
+          if (success) {
+            console.log("save skill", success);
+          }
+        });
     },
     deleteField() {
       if (confirm('Удалить skill?')) {

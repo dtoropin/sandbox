@@ -11,33 +11,18 @@
       .about__block
         //- карточка новой группы
         .skills
-          .skills__header
-            form(@submit.prevent).skills__title
-              input(type='text' placeholder='Название группы').skills__input.skills__input--title
-              .skills__btns
-                button(type='button' @click='saveGroup').btn.btn--edit
-                button(type='button' @click='deleteGroup').btn.btn--delete
-            
+          InputNameGroup
           .skills__block
-            
-          form(@submin.prevent).skills__footer.edit
-            input(type='text' placeholder='Новый навык').skills__input
-            input(type='text' value='0').skills__input.skills__input--percent
-            span.skills__percent %
-            button(type='button' @click='saveSkill').skills__plus
-              .plus.plus--bg
+          NewSkill
 
         //- карточки групп умений
         .skills(
           v-for='skill in skills'
           :key='skill.group'
         )
-          form(@submit.prevent).skills__header
-            .skills__title
-              input(type='text' placeholder='Название группы' :value='skill.group').skills__input.skills__input--title
-              .skills__btns
-                button(@click='saveGroup').btn.btn--edit
-                button(type='button' @click='deleteGroup').btn.btn--delete
+          InputNameGroup(
+            :groupName='skill.group'
+          )
             
           .skills__block
             ul.skills__list
@@ -50,15 +35,12 @@
                   :percent='percent'
                 )
 
-          form(@submit.prevent).skills__footer.edit
-            input(type='text' placeholder='Новый навык').skills__input
-            input(type='text' value='0').skills__input.skills__input--percent
-            span.skills__percent %
-            button(@click='saveSkill').skills__plus
-              .plus.plus--bg
+          NewSkill
 </template>
 
 <script>
+import { Validator } from 'simple-vue-validator';
+
 export default {
   data: () => ({
     skills: []
@@ -66,19 +48,10 @@ export default {
   created() {
     this.skills = require("../../../data/skills.json");
   },
-  methods: {
-    saveGroup() {
-      console.log("save Group");
-    },
-    saveSkill() {
-      console.log("save Skill");
-    },
-    deleteGroup() {
-      console.log("delete Group");
-    }
-  },
   components: {
-    InputSkill: () => import("../blocks/InputSkill")
+    InputSkill: () => import("../blocks/InputSkill"),
+    NewSkill: () => import("../blocks/NewSkill"),
+    InputNameGroup: () => import("../blocks/InputNameGroup")
   }
 };
 </script>
@@ -160,6 +133,7 @@ export default {
   margin-bottom: 60px;
 }
 .skills__title {
+  position: relative;
   display: grid;
   grid-template-columns: 82% 15%;
   grid-column-gap: 3%;
@@ -213,6 +187,32 @@ export default {
   }
   &--percent {
     padding-right: 17px;
+  }
+}
+.skills__error {
+  position: absolute;
+  font-size: 13px;
+  font-weight: 300;
+  color: #fff;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  padding: 1px 10px;
+  background: #cd1515;
+  border-radius: 3px;
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 11px 8px 11px;
+    border-color: transparent transparent #cd1515 transparent;
   }
 }
 .skills__percent {
