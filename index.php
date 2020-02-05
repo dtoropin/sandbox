@@ -1,12 +1,6 @@
 <?php
-
-function RND ($min, $max)
-{
-    return rand($min, $max);
-}
-
-$a = RND(1, 100);
-$b = RND(1, 100);
+$a = rand(1, 100);
+$b = rand(1, 100);
 
 echo '#1';
 echo '<br>';
